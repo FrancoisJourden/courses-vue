@@ -6,13 +6,14 @@ import "vue-toastification/dist/index.css";
 import App from './App.vue'
 import LoginView from './views/LoginView.vue'
 import './index.css'
+import ShoppingListView from "./views/ShoppingListView.vue";
 
 const routes = [
-    { path: '/', component: LoginView},
-    { path: '/login', component: LoginView },
+    { path: '/', component: ShoppingListView},
+    { path: '/login', component: LoginView},
 ]
 
-const router = createRouter({
+export const router = createRouter({
     history: createWebHashHistory(),
     routes,
 })

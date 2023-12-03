@@ -5,7 +5,7 @@ import EmailInput from "../components/login/EmailInput.vue";
 import PasswordInput from "../components/login/PasswordInput.vue";
 import ConnectButton from "../components/login/connectButton.vue";
 import Spinner from "../components/Spinner.vue";
-import {api} from "../main.js";
+import {api, router} from "../main.js";
 import {useToast} from "vue-toastification";
 
 const toast = useToast();
@@ -37,8 +37,10 @@ function handleRequestError(error) {
 }
 
 function handleRequestSuccess(response) {
+  sessionStorage.setItem('api_token', response.data.authorisation.token);
   api.defaults.headers['Authorization'] = `Bearer ${response.data.authorisation.token}`
   toast.success("Connected successfully");
+  router.push('/');
 }
 
 const validateEmail = () => {
@@ -63,10 +65,7 @@ const onSubmit = async () => {
 
   logging_in.value = true;
 
-  api.post(
-      '/login',
-      {'email': email.value, 'password': password.value},
-  )
+  api.post('/login', {'email': email.value, 'password': password.value})
       .then(handleRequestSuccess)
       .catch(handleRequestError)
       .finally(() => logging_in.value = false);
