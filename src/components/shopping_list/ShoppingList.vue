@@ -4,19 +4,6 @@ import Row from "./table/Row.vue";
 
 defineProps(['articles'])
 
-const renderStatus = (article) => {
-  if (article.taken) return "Taken";
-  if (article.canceled) return "Canceled";
-  return "Remaining";
-}
-
-const fields = [
-  {'name': 'item.name', display: 'Product name'},
-  {'name': 'article.quantity', display: 'Quantity'},
-  {'name': 'item', display: 'Category'},
-  {'name': 'article.status', display: 'Status', render: renderStatus},
-]
-
 
 </script>
 
@@ -32,7 +19,7 @@ const fields = [
       </tr>
       </thead>
       <tbody>
-      <Skeleton v-if="!articles" v-for="n in Array(10).keys()" :nb-fields="fields.length"/>
+      <Skeleton v-if="!articles" v-for="n in Array(10).keys()" :nb-fields="4"/>
       <tr v-else-if="articles.value === []">
         <td :colspan="4">There's no article in the list</td>
       </tr>
